@@ -31,7 +31,44 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
         initialIndex: 0,
         vsync:this);
   }
-
+  List<WhatsappDetails> details=[
+    WhatsappDetails(
+      'Janhavi',
+      'Hello!',
+      '2:30',
+      Messagestatus.Delivered,
+    ),
+    WhatsappDetails(
+      'Sangeetha',
+      'Hi',
+      '1:30',
+      Messagestatus.Delivered,
+    ),
+    WhatsappDetails(
+      'Simran',
+      'yo',
+      '2:30',
+      Messagestatus.Delivered,
+    ),
+    WhatsappDetails(
+      'Harini',
+      'Hi',
+      '5:30',
+      Messagestatus.Delivered,
+    ),
+    WhatsappDetails(
+      'Shreya',
+      'Hi',
+      '1:00',
+      Messagestatus.Delivered,
+    ),
+    WhatsappDetails(
+      'Sukanya',
+      'Ssup?',
+      '9:30',
+      Messagestatus.Delivered,
+    )
+  ];
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
@@ -87,10 +124,15 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
         backgroundColor: Colors.green,
       ),
       body: ListView.builder(
-        itemCount: 15,
+        itemCount: details.length,
         itemBuilder: (BuildContext context, int count)
         {
-          return Whatsapp_card();
+          return Whatsapp_card(
+            name:details[count].name,
+            message: details[count].message,
+            time: details[count].time,
+            status: details[count].status,
+          );
         },
       ),
     );
@@ -99,6 +141,17 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 
 
 class Whatsapp_card extends StatelessWidget {
+  final String name;
+  final String message;
+  final String time;
+  final Messagestatus status;
+
+  Whatsapp_card({
+    this.message,
+    this.name,
+    this.status,
+    this.time
+});
   @override
   Widget build(BuildContext context){
     return Container(
@@ -120,7 +173,7 @@ class Whatsapp_card extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                   'Janhavi',
+                   name,
                   style: TextStyle(
                     fontFamily: 'Mansalva',
                     fontWeight: FontWeight.bold,
@@ -135,7 +188,7 @@ class Whatsapp_card extends StatelessWidget {
                       color: Colors.grey
                     ),
                     Text(
-                      'YO!!!',
+                      message,
                       style:
                       TextStyle(
                         fontSize: 15,
@@ -151,7 +204,7 @@ class Whatsapp_card extends StatelessWidget {
             ),),
           Expanded(child: Container()),
           Padding(padding: EdgeInsets.only(bottom: 30),
-          child: Text('10:30',
+          child: Text(time,
           style: TextStyle(
             fontSize: 13
           ),),)
@@ -163,4 +216,16 @@ class Whatsapp_card extends StatelessWidget {
   }
 }
 
-
+class WhatsappDetails
+{
+  String name;
+  String message;
+  String time;
+  Messagestatus status;
+  WhatsappDetails(this.name,this.message,this.time,this.status);
+}
+enum Messagestatus{
+  Delivered,
+  Recieved,
+  Seen
+}
